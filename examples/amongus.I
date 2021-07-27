@@ -1,3 +1,1 @@
-print"AmongUs!"
-  
-  end
+CPR "AmongUs!"
