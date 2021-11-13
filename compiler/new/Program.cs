@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -262,6 +262,43 @@ namespace LCode_Interpreter
                             cki = Console.ReadKey();
                             SAVEDVARS[CURRENTPOINTERPOSITION] = new LVar(SanitizeString(InstructionsToExecute[1]), cki.KeyChar);
                             break;
+                        case "DUMP":
+                            if (isLoadingLoop)
+                                break;
+                            Console.WriteLine("\n[DEBUG DETAILS]");
+                            Console.WriteLine("SAVEDVARS:");
+                            for (int i = 0; i < SAVEDVARS.Length; i++)
+                            {
+                                if (SAVEDVARS[i] != null)
+                                    Console.WriteLine($"    [{i}] {SAVEDVARS[i].name}: {SAVEDVARS[i].val}");
+                            }
+                            Console.WriteLine($"LOOPS:");
+                            for (int i = 0; i < LOOPS.Length; i++)
+                            {
+                                if (LOOPS[i] != null)
+                                    Console.WriteLine($"    [{i}] {LOOPS[i].name}: line {LOOPS[i].line + 1}-{LOOPS[i].endLine}");
+                            }
+                            Console.WriteLine($"CURRENTPOINTERPOSITION: {CURRENTPOINTERPOSITION}\n");
+                            break;
+                        case "DUMP,EXIT":
+                            if (isLoadingLoop)
+                                break;
+                            Console.WriteLine("\n[DEBUG DETAILS]");
+                            Console.WriteLine("SAVEDVARS:");
+                            for (int i = 0; i < SAVEDVARS.Length; i++)
+                            {
+                                if (SAVEDVARS[i] != null)
+                                    Console.WriteLine($"    [{i}] {SAVEDVARS[i].name}: {SAVEDVARS[i].val}");
+                            }
+                            Console.WriteLine($"LOOPS:");
+                            for (int i = 0; i < LOOPS.Length; i++)
+                            {
+                                if (LOOPS[i] != null)
+                                    Console.WriteLine($"    [{i}] {LOOPS[i].name}: line {LOOPS[i].line + 1}-{LOOPS[i].endLine}");
+                            }
+                            Console.WriteLine($"CURRENTPOINTERPOSITION: {CURRENTPOINTERPOSITION}");
+                            Console.WriteLine($"Execution stopped at line {curStep + 1}");
+                            return;
                     }
                 }
             }
